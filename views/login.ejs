@@ -3,24 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>Sistema de Gestión de Incidencias TI</title>
+    <link rel="stylesheet" href="/css/estilos.css">
 </head>
 <body>
 
-    <h1>Sistema de Gestión de Incidencias TI</h1>
+    <main class="login-container">
 
-    <form action="/login" method="POST">
+        <div class="logo">TI</div>
 
-        <label>Usuario</label><br>
-        <input type="text" name="usuario" required><br><br>
+        <h1>Sistema de Incidencias TI</h1>
+        <p>Gestione y dé seguimiento a solicitudes de soporte técnico</p>
 
-        <label>Contraseña</label><br>
-        <input type="password" name="contrasena" required><br><br>
+        <% if (error) { %>
+            <div class="mensaje-error">
+                <%= error %>
+            </div>
+        <% } %>
 
-        <button type="submit">
-            Iniciar Sesión
-        </button>
+        <form action="/login" method="POST">
 
-    </form>
+            <div class="form-group">
+                <label for="usuario">Usuario</label>
+                <input
+                    type="text"
+                    id="usuario"
+                    name="usuario"
+                    placeholder="Ingrese su usuario"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="contrasena">Contraseña</label>
+                <input
+                    type="password"
+                    id="contrasena"
+                    name="contrasena"
+                    placeholder="Ingrese su contraseña"
+                    required>
+            </div>
+
+            <button type="submit">
+                Iniciar sesión
+            </button>
+
+        </form>
+
+        <div class="login-footer">
+            Proyecto 2 · Sistema de Gestión de Incidencias TI
+        </div>
+
+    </main>
 
 </body>
 </html>

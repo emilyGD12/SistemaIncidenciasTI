@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Solicitante</title>
+    <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body class="app-body">
+
+<aside class="sidebar-pro">
+    <div class="brand">
+        <div class="brand-icon">IT</div>
+        <div>
+            <h2>Incidencias TI</h2>
+            <span>Soporte Empresarial</span>
+        </div>
+    </div>
+
+    <nav>
+        <a class="active" href="#">Dashboard</a>
+        <a href="/nueva-incidencia">Nueva Incidencia</a>
+        <a href="/mis-incidencias">Mis Incidencias</a>
+        <a href="#">Historial</a>
+        <a href="/">Cerrar sesión</a>
+    </nav>
+</aside>
+
+<main class="content-pro">
+
+    <header class="topbar-pro">
+        <div>
+            <h1>Dashboard</h1>
+            <p>Resumen general de tus solicitudes de soporte técnico</p>
+        </div>
+
+        <div class="profile-pro">
+            <div class="avatar-pro">EG</div>
+            <div>
+                <strong><%= usuario.CT_Nombre %></strong>
+                <span>Solicitante</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="stats-pro">
+
+        <div class="stat-card blue-card">
+            <span>Total incidencias</span>
+            <h2><%= total %></h2>
+            <p>Registradas por el usuario</p>
+        </div>
+
+        <div class="stat-card orange-card">
+            <span>En proceso</span>
+            <h2><%= enProceso %></h2>
+            <p>Actualmente en atención</p>
+        </div>
+
+        <div class="stat-card green-card">
+            <span>Resueltas</span>
+            <h2><%= resueltas %></h2>
+            <p>Casos finalizados</p>
+        </div>
+
+    </section>
+
+    <section class="dashboard-layout">
+
+        <div class="panel-pro">
+
+            <div class="panel-header">
+                <h3>Incidencias por estado</h3>
+                <span>Vista general</span>
+            </div>
+
+            <div class="chart-fake">
+                <div class="bar one"></div>
+                <div class="bar two"></div>
+                <div class="bar three"></div>
+            </div>
+
+        </div>
+
+        <div class="panel-pro">
+
+            <div class="panel-header">
+                <h3>Acciones rápidas</h3>
+                <span>Gestión</span>
+            </div>
+
+            <button
+                class="btn-primary"
+                onclick="window.location.href='/nueva-incidencia'">
+                Nueva incidencia
+            </button>
+
+            <button
+                class="btn-secondary"
+                onclick="window.location.href='/mis-incidencias'">
+                Ver mis incidencias
+            </button>
+
+        </div>
+
+    </section>
+
+    <section class="table-pro">
+
+        <h3>Resumen del sistema</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Métrica</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Total de incidencias</td>
+                    <td><%= total %></td>
+                </tr>
+
+                <tr>
+                    <td>Incidencias en proceso</td>
+                    <td><%= enProceso %></td>
+                </tr>
+
+                <tr>
+                    <td>Incidencias resueltas</td>
+                    <td><%= resueltas %></td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </section>
+
+</main>
+
+</body>
+</html>

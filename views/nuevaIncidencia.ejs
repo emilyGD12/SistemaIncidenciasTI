@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Nueva Incidencia</title>
+    <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body class="app-body">
+
+<aside class="sidebar-pro">
+    <div class="brand">
+        <div class="brand-icon">IT</div>
+        <div>
+            <h2>Incidencias TI</h2>
+            <span>Soporte Empresarial</span>
+        </div>
+    </div>
+
+    <nav>
+        <a href="#">Dashboard</a>
+        <a class="active" href="/nueva-incidencia">Nueva Incidencia</a>
+        <a href="#">Mis Incidencias</a>
+        <a href="#">Historial</a>
+    </nav>
+</aside>
+
+<main class="content-pro">
+
+    <header class="topbar-pro">
+        <div>
+            <h1>Nueva Incidencia</h1>
+            <p>Registre una solicitud de soporte técnico</p>
+        </div>
+    </header>
+
+    <section class="form-panel">
+        <form action="/nueva-incidencia" method="POST">
+
+            <div class="form-group">
+                <label for="titulo">Título</label>
+                <input type="text" id="titulo" name="titulo" placeholder="Ej: No funciona el internet" required>
+            </div>
+
+            <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <textarea id="descripcion" name="descripcion" placeholder="Describa detalladamente el problema..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="prioridad">Prioridad</label>
+                <select id="prioridad" name="prioridad" required>
+                    <option value="">Seleccione una prioridad</option>
+                    <option value="Baja">Baja</option>
+                    <option value="Media">Media</option>
+                    <option value="Alta">Alta</option>
+                </select>
+            </div>
+
+            <button class="btn-primary" type="submit">Guardar Incidencia</button>
+
+        </form>
+    </section>
+
+</main>
+
+</body>
+</html>

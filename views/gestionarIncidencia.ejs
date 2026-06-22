@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestionar Incidencia</title>
+    <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body class="app-body">
+
+<aside class="sidebar-pro">
+    <div class="brand">
+        <div class="brand-icon">IT</div>
+        <div>
+            <h2>Incidencias TI</h2>
+            <span>Panel Técnico</span>
+        </div>
+    </div>
+
+    <nav>
+        <a href="/incidencias-tecnico">Volver</a>
+    </nav>
+</aside>
+
+<main class="content-pro">
+
+    <header class="topbar-pro">
+        <div>
+            <h1>Gestionar Incidencia</h1>
+            <p>Actualice el estado y registre observaciones</p>
+        </div>
+    </header>
+
+    <section class="panel-pro">
+
+        <form action="/actualizar-incidencia" method="POST">
+
+            <input
+                type="hidden"
+                name="idIncidencia"
+                value="<%= incidencia.CI_IdIncidencia %>">
+
+            <div class="form-group">
+                <label>Título</label>
+                <input
+                    type="text"
+                    value="<%= incidencia.CT_Titulo %>"
+                    readonly>
+            </div>
+
+            <div class="form-group">
+                <label>Descripción</label>
+                <textarea readonly><%= incidencia.CT_Descripcion %></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Prioridad</label>
+                <input
+                    type="text"
+                    value="<%= incidencia.CT_Prioridad %>"
+                    readonly>
+            </div>
+
+            <div class="form-group">
+                <label>Estado</label>
+
+                <select name="estado">
+
+                    <option value="Abierta"
+                    <%= incidencia.CT_Estado === 'Abierta' ? 'selected' : '' %>>
+                        Abierta
+                    </option>
+
+                    <option value="En Proceso"
+                    <%= incidencia.CT_Estado === 'En Proceso' ? 'selected' : '' %>>
+                        En Proceso
+                    </option>
+
+                    <option value="Resuelta"
+                    <%= incidencia.CT_Estado === 'Resuelta' ? 'selected' : '' %>>
+                        Resuelta
+                    </option>
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Observación Técnica</label>
+
+                <textarea
+                    name="observacion"
+                    placeholder="Escriba aquí la atención brindada...">
+                </textarea>
+            </div>
+
+            <button
+                class="btn-primary"
+                type="submit">
+
+                Guardar Cambios
+
+            </button>
+
+        </form>
+
+    </section>
+
+    <section class="table-pro" style="margin-top: 25px;">
+    <h3>Historial de observaciones</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Observación</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% if (comentarios.length === 0) { %>
+                <tr>
+                    <td colspan="2">No hay observaciones registradas.</td>
+                </tr>
+            <% } else { %>
+                <% comentarios.forEach((comentario) => { %>
+                    <tr>
+                        <td><%= comentario.CF_Fecha.toISOString().slice(0,10) %></td>
+                        <td><%= comentario.CT_Observacion %></td>
+                    </tr>
+                <% }) %>
+            <% } %>
+        </tbody>
+    </table>
+</section>
+
+</main>
+
+</body>
+</html>
