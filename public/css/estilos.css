@@ -415,6 +415,7 @@ button:hover{
 .blue-card{ border-color: #2563eb; }
 .orange-card{ border-color: #f97316; }
 .green-card{ border-color: #22c55e; }
+.gray-card{ border-color: #64748b; }
 
 .dashboard-layout{
     display: grid;
@@ -518,20 +519,47 @@ button:hover{
 
     .sidebar-pro{
         width: 100%;
+        box-sizing: border-box;
     }
 
     .stats-pro,
-  .dashboard-layout{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
-    margin-bottom: 28px;
-}
+    .dashboard-layout{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+        margin-bottom: 28px;
+    }
 
     .topbar-pro{
         flex-direction: column;
         align-items: flex-start;
         gap: 15px;
+    }
+}
+
+@media(max-width: 480px){
+    .stats-pro,
+    .dashboard-layout{
+        grid-template-columns: 1fr;
+    }
+
+    .content-pro{
+        padding: 16px;
+    }
+
+    .sidebar-pro{
+        padding: 16px;
+    }
+
+    .topbar-pro,
+    .panel-pro,
+    .table-pro,
+    .stat-card{
+        padding: 18px;
+    }
+
+    .table-pro{
+        overflow-x: auto;
     }
 }
 
