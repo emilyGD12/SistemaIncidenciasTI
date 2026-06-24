@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Incidencias - Tecnico</title>
+    <title>Historial - Tecnico</title>
     <link rel="stylesheet" href="/css/estilos.css">
 </head>
 <body class="app-body">
@@ -18,8 +18,8 @@
 
     <nav>
         <a href="/dashboard">Dashboard</a>
-        <a class="active" href="/incidencias-tecnico">Incidencias</a>
-        <a href="/historial-tecnico">Historial</a>
+        <a href="/incidencias-tecnico">Incidencias</a>
+        <a class="active" href="/historial-tecnico">Historial</a>
         <a href="/">Cerrar sesion</a>
     </nav>
 </aside>
@@ -28,8 +28,8 @@
 
     <header class="topbar-pro">
         <div>
-            <h1>Gestion de Incidencias</h1>
-            <p>Listado general de incidencias registradas en el sistema</p>
+            <h1>Historial de Incidencias</h1>
+            <p>Historial completo de incidencias atendidas en el sistema</p>
         </div>
     </header>
 
@@ -95,7 +95,7 @@
                                 class="btn-primary"
                                 onclick="window.location.href='/gestionar-incidencia/<%= incidencia.CI_IdIncidencia %>'">
 
-                                Gestionar
+                                Ver Detalle
 
                             </button>
 

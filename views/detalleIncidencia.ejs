@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle de Incidencia</title>
+    <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body class="app-body">
+
+<aside class="sidebar-pro">
+    <div class="brand">
+        <div class="brand-icon">IT</div>
+        <div>
+            <h2>Incidencias TI</h2>
+            <span>Soporte Empresarial</span>
+        </div>
+    </div>
+
+    <nav>
+        <a href="/mis-incidencias">Volver</a>
+    </nav>
+</aside>
+
+<main class="content-pro">
+
+    <header class="topbar-pro">
+        <div>
+            <h1>Detalle de Incidencia</h1>
+            <p>Consulte el estado y las observaciones registradas</p>
+        </div>
+    </header>
+
+    <section class="panel-pro">
+
+        <div class="form-group">
+            <label>Titulo</label>
+            <input type="text" value="<%= incidencia.CT_Titulo %>" readonly>
+        </div>
+
+        <div class="form-group">
+            <label>Descripcion</label>
+            <textarea readonly><%= incidencia.CT_Descripcion %></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Prioridad</label>
+            <input type="text" value="<%= incidencia.CT_Prioridad %>" readonly>
+        </div>
+
+        <div class="form-group">
+            <label>Estado</label>
+            <input type="text" value="<%= incidencia.CT_Estado %>" readonly>
+        </div>
+
+    </section>
+
+    <section class="table-pro" style="margin-top: 25px;">
+        <h3>Seguimiento de la incidencia</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Atendido por</th>
+                    <th>Observacion</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% if (comentarios.length === 0) { %>
+                    <tr>
+                        <td colspan="3">Aun no hay observaciones registradas.</td>
+                    </tr>
+                <% } else { %>
+                    <% comentarios.forEach((comentario) => { %>
+                        <tr>
+                            <td><%= comentario.CF_Fecha.toISOString().slice(0,10) %></td>
+                            <td><%= comentario.nombreTecnico %></td>
+                            <td><%= comentario.CT_Observacion %></td>
+                        </tr>
+                    <% }) %>
+                <% } %>
+            </tbody>
+        </table>
+    </section>
+
+</main>
+
+</body>
+</html>

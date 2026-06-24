@@ -18,10 +18,9 @@
     </div>
 
     <nav>
-        <a class="active" href="#">Dashboard</a>
+        <a href="/dashboard">Dashboard</a>
         <a href="/incidencias-tecnico">Incidencias</a>
-        <a href="#">En Proceso</a>
-        <a href="#">Resueltas</a>
+        <a href="/historial-tecnico">Historial</a>
         <a href="/">Cerrar sesión</a>
     </nav>
 </aside>
@@ -44,6 +43,12 @@
     </header>
 
     <section class="stats-pro">
+
+        <div class="stat-card gray-card">
+            <span>Total incidencias</span>
+            <h2><%= total %></h2>
+            <p>Registradas en el sistema</p>
+        </div>
 
         <div class="stat-card blue-card">
             <span>Incidencias abiertas</span>

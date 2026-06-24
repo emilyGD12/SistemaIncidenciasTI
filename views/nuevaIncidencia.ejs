@@ -17,10 +17,10 @@
     </div>
 
     <nav>
-        <a href="#">Dashboard</a>
+        <a href="/dashboard">Dashboard</a>
         <a class="active" href="/nueva-incidencia">Nueva Incidencia</a>
-        <a href="#">Mis Incidencias</a>
-        <a href="#">Historial</a>
+        <a href="/mis-incidencias">Mis Incidencias</a>
+        <a href="/historial-solicitante">Historial</a>
     </nav>
 </aside>
 
@@ -56,7 +56,17 @@
                 </select>
             </div>
 
-            <button class="btn-primary" type="submit">Guardar Incidencia</button>
+            <button 
+                class="btn-primary" 
+                type="submit">Guardar Incidencia
+            </button>
+
+            <button
+                type="button"
+                class="btn-secondary"
+                onclick="window.location.href='/dashboard'">
+                Cancelar
+            </button>
 
         </form>
     </section>
