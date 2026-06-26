@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - TechCore</title>
+    <link rel="stylesheet" href="/css/estilos.css">
+    <link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body class="tech-login-body" id="loginPage">
+
+<div class="tech-login">
+
+    <section class="tech-login-left">
+        <div class="tech-brand">
+            <div class="tech-logo">IT</div>
+            <div>
+                <h2>TechCore</h2>
+                <p>IT SERVICE MANAGEMENT</p>
+            </div>
+        </div>
+
+        <div class="tech-info">
+            <h1>Gestión de incidencias<br>de TI, <span>simplificada.</span></h1>
+            <p>
+                Centraliza, prioriza y resuelve incidencias de soporte técnico
+                de forma eficiente para que tu empresa nunca se detenga.
+            </p>
+
+            <div class="tech-feature">
+                 <i class="bi bi-shield-check"></i>
+                <div>
+                    <h3>Eficiencia operativa</h3>
+                    <p>Automatiza flujos de trabajo y reduce tiempos de resolución.</p>
+                </div>
+            </div>
+
+            <div class="tech-feature">
+                <i class="bi bi-bar-chart-fill"></i>
+                <div>
+                    <h3>Visibilidad total</h3>
+                    <p>Dashboards y métricas en tiempo real para mejores decisiones.</p>
+                </div>
+            </div>
+
+            <div class="tech-feature">
+                <i class="bi bi-people-fill"></i>
+                <div>
+                    <h3>Colaboración inteligente</h3>
+                    <p>Solicitantes y técnicos conectados en una misma plataforma.</p>
+                </div>
+            </div>
+        </div>
+
+        <p class="tech-copy">© 2026 TechCore Solutions. Proyecto Incidencias TI.</p>
+    </section>
+
+    <section class="tech-login-right">
+
+        <div class="tech-actions">
+
+    <button
+        type="button"
+        id="lightBtn"
+        title="Modo claro"
+        onclick="setTheme('light')">
+
+        <i class="bi bi-sun-fill"></i>
+
+    </button>
+
+    <button
+        type="button"
+        id="darkBtn"
+        title="Modo oscuro"
+        onclick="setTheme('dark')">
+
+        <i class="bi bi-moon-stars-fill"></i>
+
+    </button>
+
+    <strong>ES</strong>
+
+</div>
+
+        <div class="tech-card">
+            <div class="tech-lock">
+            <i class="bi bi-shield-lock-fill"></i>
+</div>
+
+            <h1>Bienvenido de nuevo</h1>
+            <p>Inicia sesión para continuar</p>
+
+            <% if (error) { %>
+                <div class="error-msg"><%= error %></div>
+            <% } %>
+
+            <form action="/login" method="POST">
+                <div class="tech-group">
+                    <label>Usuario</label>
+                    <div class="tech-input">
+                       <span>
+                    <i class="bi bi-person-fill"></i>
+                </span>
+                        <input type="text" name="usuario" placeholder="Ingrese su usuario" required>
+                    </div>
+                </div>
+
+                <div class="tech-group">
+                    <div class="tech-label-row">
+                        <label>Contraseña</label>
+                        <a href="#" onclick="mostrarRecuperacion(event)">¿Olvidaste tu contraseña?</a>
+                    </div>
+
+                    <div class="tech-input">
+                        <span>
+                        <i class="bi bi-lock-fill"></i>
+                        </span>
+                        <input type="password" name="contrasena" placeholder="Ingrese su contraseña" required>
+                    </div>
+                </div>
+
+                <label class="tech-remember">
+                    <input type="checkbox">
+                    <span>Recordarme en este dispositivo</span>
+                </label>
+
+                <button type="submit" class="tech-login-btn">
+                    Iniciar sesión
+                </button>
+
+                <div class="tech-divider">
+                    <span></span>
+                    <small>o</small>
+                    <span></span>
+                </div>
+
+                <button type="button" class="tech-corp-btn" onclick="mostrarSSO()">
+                    <i class="bi bi-building"></i>Iniciar sesión con cuenta corporativa
+                </button>
+            </form>
+        </div>
+
+        <p class="tech-security">
+            <i class="bi bi-shield-lock-fill"></i> Tu información está protegida en el sistema de gestión de incidencias.
+        </p>
+
+    </section>
+
+</div>
+
+<script>
+    function setTheme(theme) {
+        const body = document.getElementById('loginPage');
+
+        if (theme === 'dark') {
+            body.classList.add('dark-login');
+            localStorage.setItem('loginTheme', 'dark');
+        } else {
+            body.classList.remove('dark-login');
+            localStorage.setItem('loginTheme', 'light');
+        }
+    }
+
+    function mostrarRecuperacion(event) {
+        event.preventDefault();
+        alert('Para recuperar la contraseña, contacte al administrador del sistema.');
+    }
+
+    function mostrarSSO() {
+        alert('Inicio de sesión corporativo disponible para futuras integraciones SSO.');
+    }
+
+    const savedTheme = localStorage.getItem('loginTheme');
+    if (savedTheme === 'dark') {
+        document.getElementById('loginPage').classList.add('dark-login');
+    }
+</script>
+
+</body>
+</html>

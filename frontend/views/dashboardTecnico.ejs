@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Técnico</title>
+    <link rel="stylesheet" href="/css/estilos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body class="app-body">
+
+<aside class="sidebar-pro">
+    <div class="brand">
+        <div class="brand-icon">IT</div>
+        <div>
+            <h2>Incidencias TI</h2>
+            <span>Panel Técnico</span>
+        </div>
+    </div>
+
+    <nav>
+        <a class="active" href="/dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a>
+        <a href="/incidencias-tecnico"><i class="bi bi-ticket-detailed"></i> Incidencias</a>
+        <a href="/historial-tecnico"><i class="bi bi-clock-history"></i> Historial</a>
+        <a href="/"><i class="bi bi-box-arrow-right"></i> Cerrar sesión</a>
+    </nav>
+</aside>
+
+<main class="content-pro">
+
+    <header class="topbar-pro dashboard-hero">
+        <div>
+            <span class="section-label">Panel de control</span>
+            <h1>Dashboard Técnico</h1>
+            <p>Gestión, seguimiento y resolución de incidencias registradas</p>
+        </div>
+
+        <div class="profile-pro">
+            <div class="avatar-pro">TS</div>
+            <div>
+                <strong><%= usuario.CT_Nombre %></strong>
+                <span>Técnico de soporte</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="stats-pro dashboard-stats">
+
+        <div class="stat-card gray-card">
+            <div class="stat-icon gray-icon">
+                <i class="bi bi-collection"></i>
+            </div>
+            <span>Total incidencias</span>
+            <h2><%= total %></h2>
+            <p>Registradas en el sistema</p>
+        </div>
+
+        <div class="stat-card blue-card card-click"
+             onclick="window.location.href='/incidencias-tecnico?estado=Abierta'">
+            <div class="stat-icon blue-icon">
+                <i class="bi bi-exclamation-circle"></i>
+            </div>
+            <span>Incidencias abiertas</span>
+            <h2><%= abiertas %></h2>
+            <p>Pendientes de revisión</p>
+        </div>
+
+        <div class="stat-card orange-card card-click"
+             onclick="window.location.href='/incidencias-tecnico?estado=En%20Proceso'">
+            <div class="stat-icon orange-icon">
+                <i class="bi bi-hourglass-split"></i>
+            </div>
+            <span>En proceso</span>
+            <h2><%= enProceso %></h2>
+            <p>Actualmente en atención</p>
+        </div>
+
+        <div class="stat-card green-card card-click"
+             onclick="window.location.href='/historial-tecnico'">
+            <div class="stat-icon green-icon">
+                <i class="bi bi-check-circle"></i>
+            </div>
+            <span>Resueltas</span>
+            <h2><%= resueltas %></h2>
+            <p>Casos finalizados</p>
+        </div>
+
+    </section>
+
+    <section class="dashboard-layout dashboard-charts">
+
+        <div class="panel-pro chart-card">
+            <div class="panel-header">
+                <div>
+                    <h3>Incidencias por prioridad</h3>
+                    <span>Distribución según nivel de urgencia</span>
+                </div>
+                <i class="bi bi-pie-chart-fill panel-icon"></i>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="graficoPrioridad"></canvas>
+            </div>
+        </div>
+
+        <div class="panel-pro chart-card">
+            <div class="panel-header">
+                <div>
+                    <h3>Incidencias por estado</h3>
+                    <span>Abiertas · En proceso · Resueltas</span>
+                </div>
+                <i class="bi bi-bar-chart-fill panel-icon"></i>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="graficoEstado"></canvas>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="table-pro summary-card">
+
+        <div class="panel-header">
+            <div>
+                <h3>Resumen del sistema</h3>
+                <span>Vista general del estado actual de las incidencias</span>
+            </div>
+            <i class="bi bi-clipboard-data panel-icon"></i>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Métrica</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td><i class="bi bi-exclamation-circle text-blue"></i> Incidencias abiertas</td>
+                    <td><strong><%= abiertas %></strong></td>
+                </tr>
+
+                <tr>
+                    <td><i class="bi bi-hourglass-split text-orange"></i> Incidencias en proceso</td>
+                    <td><strong><%= enProceso %></strong></td>
+                </tr>
+
+                <tr>
+                    <td><i class="bi bi-check-circle text-green"></i> Incidencias resueltas</td>
+                    <td><strong><%= resueltas %></strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const baja = <%= baja %>;
+    const media = <%= media %>;
+    const alta = <%= alta %>;
+
+    const abiertas = <%= abiertas %>;
+    const enProceso = <%= enProceso %>;
+    const resueltas = <%= resueltas %>;
+
+    new Chart(document.getElementById('graficoPrioridad'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Baja', 'Media', 'Alta'],
+            datasets: [{
+                data: [baja, media, alta],
+                backgroundColor: ['#22c55e', '#f97316', '#ef4444'],
+                borderColor: '#ffffff',
+                borderWidth: 3
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '68%',
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+
+    new Chart(document.getElementById('graficoEstado'), {
+        type: 'bar',
+        data: {
+            labels: ['Abiertas', 'En Proceso', 'Resueltas'],
+            datasets: [{
+                label: 'Cantidad',
+                data: [abiertas, enProceso, resueltas],
+                backgroundColor: ['#2563eb', '#f97316', '#22c55e'],
+                borderRadius: 12
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

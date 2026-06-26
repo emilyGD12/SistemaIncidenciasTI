@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Incidencias - Tecnico</title>
+    <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body class="app-body">
+
+<aside class="sidebar-pro">
+    <div class="brand">
+        <div class="brand-icon">IT</div>
+        <div>
+            <h2>Incidencias TI</h2>
+            <span>Panel Tecnico</span>
+        </div>
+    </div>
+
+    <nav>
+        <a href="/dashboard">Dashboard</a>
+        <a class="active" href="/incidencias-tecnico">Incidencias</a>
+        <a href="/historial-tecnico">Historial</a>
+        <a href="/">Cerrar sesion</a>
+    </nav>
+</aside>
+
+<main class="content-pro">
+
+    <header class="topbar-pro">
+        <div>
+            <h1>Gestion de Incidencias</h1>
+            <p>Listado general de incidencias registradas en el sistema</p>
+        </div>
+    </header>
+
+        <section class="panel-pro" style="margin-bottom: 25px;">
+        <h3>Filtrar incidencias</h3>
+
+       <div class="filter-buttons">
+       <a href="/incidencias-tecnico"
+       class="<%= estadoSeleccionado === 'Todas' ? 'active-filter' : '' %>">
+        Activas (<%= contadores.activas || 0 %>)
+    </a>
+
+       <a href="/incidencias-tecnico?estado=Abierta"
+       class="<%= estadoSeleccionado === 'Abierta' ? 'active-filter' : '' %>">
+        Abiertas (<%= contadores.abiertas || 0 %>)
+    </a>
+
+        <a href="/incidencias-tecnico?estado=En%20Proceso"
+       class="<%= estadoSeleccionado === 'En Proceso' ? 'active-filter' : '' %>">
+        En Proceso (<%= contadores.enProceso || 0 %>)
+    </a>
+
+     <a href="/incidencias-tecnico?estado=Resuelta"
+       class="<%= estadoSeleccionado === 'Resuelta' ? 'active-filter' : '' %>">
+        Resueltas (<%= contadores.resueltas || 0 %>)
+    </a>
+</div>
+    </section>
+
+    <section class="panel-pro" style="margin-bottom: 25px;">
+    <h3>Buscar incidencia</h3>
+
+    <form action="/incidencias-tecnico" method="GET" class="search-form">
+
+        <input
+            type="text"
+            name="busqueda"
+            placeholder="Buscar por título, solicitante, prioridad o estado..."
+            value="<%= busqueda %>">
+
+        <% if (estadoSeleccionado && estadoSeleccionado !== 'Todas') { %>
+            <input type="hidden" name="estado" value="<%= estadoSeleccionado %>">
+        <% } %>
+
+        <button type="submit" class="btn-primary">
+            Buscar
+        </button>
+
+        <a href="/incidencias-tecnico" class="btn-clear">
+            Limpiar
+        </a>
+
+    </form>
+</section>
+
+    <section class="table-pro">
+
+    
+
+        <h3>Todas las incidencias</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titulo</th>
+                    <th>Solicitante</th>
+                    <th>Prioridad</th>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                    <th>Accion</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <% if (incidencias.length === 0) { %>
+
+                    <tr>
+                        <td colspan="7">
+                            No hay incidencias registradas.
+                        </td>
+                    </tr>
+
+                <% } else { %>
+
+                    <% incidencias.forEach((incidencia) => { %>
+
+                    <tr>
+
+                        <td>
+                            #<%= incidencia.CI_IdIncidencia %>
+                        </td>
+
+                        <td>
+                            <%= incidencia.CT_Titulo %>
+                        </td>
+
+                        <td>
+                            <%= incidencia.nombreSolicitante %>
+                        </td>
+
+                        <td>
+                            <span class="badge prioridad-<%= incidencia.CT_Prioridad.toLowerCase() %>">
+                                <%= incidencia.CT_Prioridad %>
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="badge estado-<%= incidencia.CT_Estado.toLowerCase().replace(' ', '-') %>">
+                                <%= incidencia.CT_Estado %>
+                            </span>
+                        </td>
+<td>
+
+    <%
+        const fecha = new Date(incidencia.CF_Fecha_Creacion);
+        const ahora = new Date();
+
+        const diferencia = Math.floor((ahora - fecha) / 1000);
+
+        const minutos = Math.floor(diferencia / 60);
+        const horas = Math.floor(minutos / 60);
+        const dias = Math.floor(horas / 24);
+
+        let textoFecha = "";
+        let textoTiempo = "";
+
+            if (dias === 0) {
+                textoFecha = "Hoy";
+}         else if (dias === 1) {
+        
+          textoFecha = "Ayer";
+}            else {
+   
+    textoFecha = fecha.toLocaleDateString('es-CR');
+}
+
+        if (dias > 0) {
+        textoTiempo = `Hace ${dias} día${dias > 1 ? "s" : ""}`;
+} else if (horas > 0) {
+    
+        textoTiempo = `Hace ${horas} hora${horas > 1 ? "s" : ""}`;
+}       else if (minutos > 0) {
+   
+        textoTiempo = `Hace ${minutos} minuto${minutos > 1 ? "s" : ""}`;
+}       else {
+    
+    textoTiempo = "Hace unos segundos";
+}
+%>
+
+<div style="display:flex;flex-direction:column;">
+
+    <span style="font-weight:600;">
+        📅 <%= textoFecha %>
+    </span>
+
+    <small style="color:#6b7280;">
+        🕒 <%= textoTiempo %>
+    </small>
+
+</div>
+
+</td>
+
+                        <td>
+
+                            <button
+                                class="btn-primary"
+                                onclick="window.location.href='/gestionar-incidencia/<%= incidencia.CI_IdIncidencia %>'">
+
+                                Gestionar
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                    <% }) %>
+
+                <% } %>
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+</main>
+
+</body>
+</html>

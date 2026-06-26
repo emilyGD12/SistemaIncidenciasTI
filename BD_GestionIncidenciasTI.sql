@@ -1,6 +1,6 @@
 
 
-DROP DATABASE gestion_accidentes_ti;
+DROP DATABASE IF EXISTS gestion_incidencias_ti;
 
 CREATE DATABASE gestion_incidencias_ti;
 
@@ -14,6 +14,7 @@ CREATE TABLE Usuario (
     CT_Usuario VARCHAR(50) NOT NULL UNIQUE,
     CT_Contrasena VARCHAR(255) NOT NULL,
     CT_Rol ENUM('Solicitante', 'Tecnico') NOT NULL,
+    CF_Fecha_Creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT PK_Usuario PRIMARY KEY (CI_IdUsuario)
 );
 
@@ -42,3 +43,12 @@ CREATE TABLE Comentario (
     CONSTRAINT FK_Comentario_X_Usuario 
         FOREIGN KEY (CI_IdUsuario) REFERENCES Usuario(CI_IdUsuario)
 );
+
+CREATE INDEX IDX_Usuario
+ON Usuario(CT_Usuario);
+
+CREATE INDEX IDX_Estado
+ON Incidencia(CT_Estado);
+
+CREATE INDEX IDX_Prioridad
+ON Incidencia(CT_Prioridad);
